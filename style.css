@@ -1,0 +1,50 @@
+html {
+  background: url("images/curtain.png") no-repeat;
+  background-size: cover;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+#game_background {
+  background:#dddddd;
+	width:800px;
+	height:540px;
+	padding:70px;
+	margin:0px auto;
+  border-radius: 84px;
+  box-shadow: inset 0px 0px 20px -6px rgba(97,89,97,1);
+}
+
+#score {
+  background-color:lightpink;;
+  border-radius: 8px;
+  font-size: 30px;
+  font-family: Arial;
+  width:200px;
+  padding: 20px;
+  padding-top: 0;
+  margin-left: 75%;
+}
+
+h1 {
+  color: lightpink;
+  font-weight: bolder;
+  font-size: 67px;
+  text-align: center;
+  text-shadow: 0px 0px 20px rgba(150, 150, 150, 1);
+
+}
+
+h2 {
+  color: #456783;
+  font-weight: bolder;
+  font-size: 35px;
+  text-align: center;
+  text-shadow: 1px #ff0000;
+  text-shadow: 1px #ff0000;
+}
+
+p {
+  font-weight: bolder;
+  font-size: 20px;
+  text-align: center;
+}

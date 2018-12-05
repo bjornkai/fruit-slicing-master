@@ -1,9 +1,6 @@
 const myCanvas = document.querySelector(".fruit-master");
 const ctx = myCanvas.getContext("2d");
 
-const backgroundImage = new Image();
-backgroundImage.src = `/images/curtain.png`;
-
 // GLOBAL VARIABLES 
 let score = 0;
 
@@ -23,7 +20,6 @@ const bomb = [
   {name: `bomb`, image: `/images/bomb.png`}
 ];
 
-
 // GAME CONSTRUCTOR FUNCTION
 
-// LOAD IMAGE FIRST or NOTHING WILL DRAW.
+
