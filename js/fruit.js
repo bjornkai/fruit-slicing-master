@@ -1,11 +1,12 @@
-$(window).load(function(){
-  $(document).mousemove(function(knife) {
-    let x = e.pageX;
-    let y = e.pageY;
-    $(`#knife`).css(`margin-left`, x);
-    $(`#knife`).css(`margin-top`, y);
-   });
-})
+$(window).on(`load`, function(){
+  $(document).mousemove(function(e) {
+    $(`#knife`).offset({
+      left: e.pageX -30,
+      top: e.pageY -30
+    });
+    });
+  })
+
 
 
 const myCanvas = document.querySelector(".fruit-master");
