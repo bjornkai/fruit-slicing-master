@@ -50,7 +50,7 @@ function Fruit (image) {
   //   }
   // }
   this.draw = function(){
-    console.log("= = = == = == = == == =")
+    // console.log("= = = == = == = == == =")
     // this.image.onload = () =>{
       ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
       // console.log(" = == = =",this);
@@ -59,45 +59,67 @@ function Fruit (image) {
 }
 
 
-function createFruit(){
-  console.log("drawing")
-  let indx = Math.floor(Math.random()*fruitsArray.length);
-  let randomFruitImg  = fruitsArray[indx].image;
-  currentFruit = new Fruit(randomFruitImg);
-  // console.log(currentFruit)
-  currentFruit.draw();
-}
+// function createFruit(){
+//   console.log("drawing")
+//   let indx = Math.floor(Math.random()*fruitsArray.length);
+//   let randomFruitImg  = fruitsArray[indx].image;
+//   currentFruit = new Fruit(randomFruitImg);
+//   // console.log(currentFruit)
+//   currentFruit.draw();
+// }
 
 
 function startGame(){
-  // drawingLoop();
-  update();
+  drawingLoop();
+  // update();
 }
 
 frames = 0;
+const fruits = [];
 function drawingLoop(){
   // console.log("helllo")
   ctx.clearRect(0, 0, 1000, 5000);
   frames++;
   console.log(frames)
 
-  if(frames % 240 === 1){
+
+  if(frames % 60 === 1){
     // console.log("IN!!!!!")
 
-    createFruit(); 
+    // createFruit(); 
+
+    let indx = Math.floor(Math.random()*fruitsArray.length);
+    let randomFruitImg  = fruitsArray[indx].image;
+    currentFruit = new Fruit(randomFruitImg);
+    // console.log(currentFruit);
+    fruits.push(currentFruit);
+    
   }
 
-  currentFruit.draw();
+  for(let i=0; i<fruits.length; i++){
+    fruits[i].draw();
+  }
 
-  requestAnimationFrame(function(){
-    drawingLoop();
-  })
+  if(fruits.length>3){
+    if(frames % 30 ===1){
+      let indx = Math.floor(Math.random()*fruits.length);
+      fruits.splice(indx, 1);
+    }
+  }
+
+
+  // currentFruit.draw();
+  setTimeout(function(){
+    requestAnimationFrame(function(){
+      drawingLoop();
+    })
+  }, 40);
 }
 
 
-function update(){
-  setInterval(drawingLoop, 4000);
-}
+// function update(){
+//   setInterval(drawingLoop, 4000);
+// }
 
 
 startGame();
