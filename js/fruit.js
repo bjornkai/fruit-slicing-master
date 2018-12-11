@@ -1,3 +1,13 @@
+$(window).load(function(){
+  $(document).mousemove(function(knife) {
+    let x = e.pageX;
+    let y = e.pageY;
+    $(`#knife`).css(`margin-left`, x);
+    $(`#knife`).css(`margin-top`, y);
+   });
+})
+
+
 const myCanvas = document.querySelector(".fruit-master");
 const ctx = myCanvas.getContext("2d");
 
@@ -7,10 +17,12 @@ function startGame() {
 }
 
 // GLOBAL VARIABLES 
+
 let currentFruit
 let score = 0;
 
 // FRUIT and BOMB ARRAY/OBJECT
+
 const fruitsArray = [
   {name: `apple`, image: `./images/apple.png`},
   {name: `banana`, image: `./images/banana.png`},
@@ -24,6 +36,10 @@ const fruitsArray = [
 
 const bomb = [
   {name: `bomb`, image: `./images/bomb.png`}
+];
+
+const knife = [
+  {name: `knife`, image: `./images/knife.png`}
 ];
 
 // FUNCTION TO CREATE IMG FOR ALL FRUITS
