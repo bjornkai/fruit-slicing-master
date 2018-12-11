@@ -7,6 +7,7 @@ function startGame() {
 }
 
 // GLOBAL VARIABLES 
+let currentFruit
 let score = 0;
 
 // FRUIT and BOMB ARRAY/OBJECT
@@ -62,9 +63,9 @@ function createFruit(){
   console.log("drawing")
   let indx = Math.floor(Math.random()*fruitsArray.length);
   let randomFruitImg  = fruitsArray[indx].image;
-  const someFruit = new Fruit(randomFruitImg);
-  console.log(someFruit)
-  someFruit.draw();
+  currentFruit = new Fruit(randomFruitImg);
+  // console.log(currentFruit)
+  currentFruit.draw();
 }
 
 
@@ -75,83 +76,28 @@ function startGame(){
 
 frames = 0;
 function drawingLoop(){
-  console.log("helllo")
-  ctx.clearRect(0, 0, 1000, 600);
+  // console.log("helllo")
+  ctx.clearRect(0, 0, 1000, 5000);
   frames++;
   console.log(frames)
 
-  if(frames % 60 === 1){
-    console.log("IN!!!!!")
+  if(frames % 240 === 1){
+    // console.log("IN!!!!!")
 
     createFruit(); 
   }
-  // requestAnimationFrame(function(){
-  //   drawingLoop();
-  // })
+
+  currentFruit.draw();
+
+  requestAnimationFrame(function(){
+    drawingLoop();
+  })
 }
 
 
 function update(){
-  setInterval(drawingLoop, 1000);
+  setInterval(drawingLoop, 4000);
 }
 
 
 startGame();
-
-
-// let peachesImgX = 700;
-// let peachesImgY = 400; 
-// let peachesImg = new Image();
-// peachesImg.src = fruitsArray[5].image;
-// let peaches = new createFruitImgs (50, 50, peachesImgX, peachesImgY, peachesImg)
-// function drawingLoop(){
-//   ctx.clearRect(0, 0, 1000, 500);
-//   ctx.drawImage();
-//   peachImgY -= 6;
-//   if(peachesImgY < 50){
-//     peachesImgY = 1000;
-//     peachesImgX = Math.floor(Math.random() * 500);
-//   }
-//   requestAnimationFrame(function(){
-//     drawingLoop();
-//   })
-// }
-
-// const grapeImg = new Image();
-// grapeImg.src = fruitsArray[3].image;
-
-// let grapeImgX = 800;
-// let grapeImgY = 200;
-
-// grapeImg.onload = function(){
-//     // ctx.drawImage(whichImage, x, y, width, height);
-//     ctx.drawImage(grapeImg, grapeImgX, grapeImgY, 50, 50);
-// };
-
-// drawingLoop();
-
-// ANIMATE THE CANVAS 
-
-// function drawingLoop(){
-//   // erase the whole canvas before drawing everything again
-
-//   ctx.clearRect(0, 0, 1000, 500);
-//   ctx.drawImage(grapeImg, grapeImgX, grapeImgY, 50, 50);
-
-//   // start moving grape by changing it X coordinate in every loop call
-//   grapeImgY -= 5;
-
-//   // when the grape disappears from the canvas
-//   if(grapeImgY < 50){
-//       // set its x again to grapeImgX=1000
-//       grapeImgY = 1000;
-//       // and for each grape pick random Y in range 0 to 500 (which is height of the canvas)
-//       grapeImgX = Math.floor(Math.random() * 500);
-//   }
-
-//   // re-draw the whole sceen
-//   requestAnimationFrame(function(){
-//       // sets up a recursive loop (function calls itself multiple times)
-//       drawingLoop();
-//   });
-// }
