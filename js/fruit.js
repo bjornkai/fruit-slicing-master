@@ -1,3 +1,5 @@
+// places the knife image on the mouse
+
 $(window).on(`load`, function(){
   $(document).mousemove(function(e) {
     $(`#knife`).offset({
@@ -6,7 +8,6 @@ $(window).on(`load`, function(){
     });
     });
   })
-
 
 
 const myCanvas = document.querySelector(".fruit-master");
