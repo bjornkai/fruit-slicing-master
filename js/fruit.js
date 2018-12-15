@@ -9,7 +9,6 @@ $(window).on(`load`, function(){
     });
   })
 
-
 const myCanvas = document.querySelector(".fruit-master");
 const ctx = myCanvas.getContext("2d");
 
@@ -40,9 +39,6 @@ const bomb = [
   {name: `bomb`, image: `./images/bomb.png`}
 ];
 
-const knife = [
-  {name: `knife`, image: `./images/knife.png`}
-];
 
 // FUNCTION TO CREATE IMG FOR ALL FRUITS
 
@@ -76,6 +72,14 @@ function Fruit (image) {
   }
 }
 
+function getMousePos(canvas, evt) {
+  var rect = canvas.getBoundingClientRect();
+  return {
+    x: evt.clientX - rect.left,
+    y: evt.clientY - rect.top
+  };
+}
+
 
 // function createFruit(){
 //   console.log("drawing")
@@ -92,16 +96,23 @@ function startGame(){
   // update();
 }
 
+// function to detect when the knife is over a fruit
+// if so, slice fruit and gain a point 
+
+// function detectCollision(){
+//   if ()
+// }
+
 frames = 0;
 const fruits = [];
 function drawingLoop(){
-  // console.log("helllo")
+  // console.log("hello")
   ctx.clearRect(0, 0, 1000, 5000);
   frames++;
   console.log(frames)
 
 
-  if(frames % 60 === 1){
+  if(frames % 50 === 1){
     // console.log("IN!!!!!")
 
     // createFruit(); 
@@ -111,7 +122,7 @@ function drawingLoop(){
     currentFruit = new Fruit(randomFruitImg);
     // console.log(currentFruit);
     fruits.push(currentFruit);
-    
+
   }
 
   for(let i=0; i<fruits.length; i++){
@@ -119,7 +130,7 @@ function drawingLoop(){
   }
 
   if(fruits.length>3){
-    if(frames % 30 ===1){
+    if(frames % 40 ===1){
       let indx = Math.floor(Math.random()*fruits.length);
       fruits.splice(indx, 1);
     }
@@ -131,7 +142,7 @@ function drawingLoop(){
     requestAnimationFrame(function(){
       drawingLoop();
     })
-  }, 40);
+  }, 10);
 }
 
 
