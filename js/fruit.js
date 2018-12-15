@@ -39,11 +39,9 @@ const bomb = [
   {name: `bomb`, image: `./images/bomb.png`}
 ];
 
-
 // FUNCTION TO CREATE IMG FOR ALL FRUITS
 
 function Fruit (image) {
-  // this.image = type;
   this.image = new Image();
   this.image.src = image;
 
@@ -51,24 +49,9 @@ function Fruit (image) {
   this.height = 70; 
   this.x = Math.floor(Math.random()*900);
   this.y = Math.floor(Math.random()*400); 
-  // this.update = function() {
-  //   ctx = myGameArea.context;
-  //   if (type == "image") {
-  //     ctx.drawImage(this.image, 
-  //       this.x, 
-  //       this.y,
-  //       this.width, this.height);
-  //   } else {
-  //     ctx.fillStyle = color;
-  //     ctx.fillRect(this.x, this.y, this.width, this.height);
-  //   }
-  // }
+ 
   this.draw = function(){
-    // console.log("= = = == = == = == == =")
-    // this.image.onload = () =>{
-      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-      // console.log(" = == = =",this);
-    // }
+    ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 }
 
@@ -79,7 +62,6 @@ function getMousePos(canvas, evt) {
     y: evt.clientY - rect.top
   };
 }
-
 
 // function createFruit(){
 //   console.log("drawing")
@@ -99,9 +81,9 @@ function startGame(){
 // function to detect when the knife is over a fruit
 // if so, slice fruit and gain a point 
 
-// function detectCollision(){
-//   if ()
-// }
+function detectCollision(){
+
+}
 
 frames = 0;
 const fruits = [];
@@ -113,8 +95,6 @@ function drawingLoop(){
 
 
   if(frames % 50 === 1){
-    // console.log("IN!!!!!")
-
     // createFruit(); 
 
     let indx = Math.floor(Math.random()*fruitsArray.length);
@@ -122,7 +102,6 @@ function drawingLoop(){
     currentFruit = new Fruit(randomFruitImg);
     // console.log(currentFruit);
     fruits.push(currentFruit);
-
   }
 
   for(let i=0; i<fruits.length; i++){
@@ -136,7 +115,6 @@ function drawingLoop(){
     }
   }
 
-
   // currentFruit.draw();
   setTimeout(function(){
     requestAnimationFrame(function(){
@@ -145,10 +123,8 @@ function drawingLoop(){
   }, 10);
 }
 
-
 // function update(){
 //   setInterval(drawingLoop, 4000);
 // }
-
 
 startGame();
