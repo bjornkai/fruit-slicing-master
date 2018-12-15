@@ -1,13 +1,13 @@
-// places the knife image on the mouse
+// KNIFE IMG ON MOUSE
 
-// $(window).on(`load`, function(){
-//   $(document).mousemove(function(e) {
-//     $(`#knife`).offset({
-//       left: e.pageX -30,
-//       top: e.pageY -30
-//     });
-//     });
-//   })
+$(window).on(`load`, function(){
+  $(document).mousemove(function(e) {
+    $(`#knife`).offset({
+      left: e.pageX -30,
+      top: e.pageY -30
+    });
+    });
+  })
 
 const myCanvas = document.querySelector(".fruit-master");
 const ctx = myCanvas.getContext("2d");
@@ -23,7 +23,8 @@ function startGame() {
 let currentFruit
 let score = 0;
 
-// FRUIT and BOMB ARRAY/OBJECT
+
+// FRUIT and ARRAY/OBJECT
 
 const fruitsArray = [
   {name: `apple`, image: `./images/apple.png`},
@@ -36,11 +37,10 @@ const fruitsArray = [
   {name: `watermelon`, image: `./images/watermelon.png`}
 ];
 
-const bomb = [
-  {name: `bomb`, image: `./images/bomb.png`}
-];
 
-// FUNCTION TO CREATE IMG FOR ALL FRUITS
+
+
+// FRUIT CONSTRUCTOR TO CREATE IMG FOR ALL FRUITS
 
 function Fruit (image) {
   this.image = new Image();
@@ -56,6 +56,24 @@ function Fruit (image) {
   }
 }
 
+// BOMB CONSTRUCTOR
+
+function Bomb (image) {
+  this.image = new Image();
+  this.image.src = `./images/bomb.png`;
+  this.isTouched = false;
+  this.width = 70;
+  this.height = 70; 
+  this.x = Math.floor(Math.random()*900);
+  this.y = Math.floor(Math.random()*400); 
+ 
+  this.draw = function(){
+    ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+  }
+}
+
+// MOUSE POSITION
+
 function getMousePos(canvas, evt) {
   let rect = canvas.getBoundingClientRect();
   return {
@@ -69,8 +87,7 @@ function startGame(){
   // update();
 }
 
-// function to detect when the knife is over a fruit
-// if so, slice fruit and gain a point 
+// FUNCTION TO CHECK COLLISION
 
 function checkCollision(obj1, obj2){
   return obj1.y + obj1.height >= obj2.clientY
@@ -82,21 +99,24 @@ function checkCollision(obj1, obj2){
 frames = 0;
 const fruits = [];
 function drawingLoop(){
-  // console.log("hello")
   ctx.clearRect(0, 0, 1000, 5000);
   frames++;
   // console.log(frames)
 
 
-  if(frames % 50 === 1){
-    // createFruit(); 
-
+  if(frames % 40 === 1){
     let indx = Math.floor(Math.random()*fruitsArray.length);
     let randomFruitImg  = fruitsArray[indx].image;
     currentFruit = new Fruit(randomFruitImg);
-    // console.log(currentFruit);
     fruits.push(currentFruit);
   }
+
+  if(frames % 80 === 1){
+    currentBomb = new Bomb();
+    currentBomb.draw();
+    console.log("bomb");
+  }
+
 
   for(let i=0; i<fruits.length; i++){
     fruits[i].draw();
@@ -108,6 +128,8 @@ function drawingLoop(){
       fruits.splice(indx, 1);
     }
   }
+
+  // MOUSE + COLLISON DETECTION
 
   myCanvas.addEventListener("mousemove", function(event) {
     for(let i=0; i<fruits.length; i++){
