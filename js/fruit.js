@@ -1,16 +1,17 @@
 // places the knife image on the mouse
 
-$(window).on(`load`, function(){
-  $(document).mousemove(function(e) {
-    $(`#knife`).offset({
-      left: e.pageX -30,
-      top: e.pageY -30
-    });
-    });
-  })
+// $(window).on(`load`, function(){
+//   $(document).mousemove(function(e) {
+//     $(`#knife`).offset({
+//       left: e.pageX -30,
+//       top: e.pageY -30
+//     });
+//     });
+//   })
 
 const myCanvas = document.querySelector(".fruit-master");
 const ctx = myCanvas.getContext("2d");
+
 
 function startGame() {
   myGamePiece = new component(30, 30, "", 10, 120, "image");
@@ -56,22 +57,12 @@ function Fruit (image) {
 }
 
 function getMousePos(canvas, evt) {
-  var rect = canvas.getBoundingClientRect();
+  let rect = canvas.getBoundingClientRect();
   return {
     x: evt.clientX - rect.left,
     y: evt.clientY - rect.top
   };
 }
-
-// function createFruit(){
-//   console.log("drawing")
-//   let indx = Math.floor(Math.random()*fruitsArray.length);
-//   let randomFruitImg  = fruitsArray[indx].image;
-//   currentFruit = new Fruit(randomFruitImg);
-//   // console.log(currentFruit)
-//   currentFruit.draw();
-// }
-
 
 function startGame(){
   drawingLoop();
@@ -81,8 +72,11 @@ function startGame(){
 // function to detect when the knife is over a fruit
 // if so, slice fruit and gain a point 
 
-function detectCollision(){
-
+function checkCollision(obj1, obj2){
+  return obj1.y + obj1.height >= obj2.clientY
+   &&    obj1.y <= obj2.clientY
+   &&    obj1.x + obj1.width >= obj2.clientX
+   &&    obj1.x <= obj2.clientX
 }
 
 frames = 0;
@@ -91,7 +85,7 @@ function drawingLoop(){
   // console.log("hello")
   ctx.clearRect(0, 0, 1000, 5000);
   frames++;
-  console.log(frames)
+  // console.log(frames)
 
 
   if(frames % 50 === 1){
@@ -114,6 +108,15 @@ function drawingLoop(){
       fruits.splice(indx, 1);
     }
   }
+
+  myCanvas.addEventListener("mousemove", function(event) {
+    for(let i=0; i<fruits.length; i++){
+      if(checkCollision(fruits[i], event)){
+        let indx = fruits[i];
+        fruits.splice(i, 1);
+      }
+      };
+  });
 
   // currentFruit.draw();
   setTimeout(function(){
