@@ -22,6 +22,7 @@ function startGame() {
 
 let currentFruit
 let score = 0;
+let bombDraw = false;
 
 
 // FRUIT and ARRAY/OBJECT
@@ -114,9 +115,17 @@ function drawingLoop(){
   if(frames % 80 === 1){
     currentBomb = new Bomb();
     currentBomb.draw();
+    bombDraw = true;
     console.log("bomb");
+    setTimeout(function(){
+        bombDraw = false;
+      
+    }, 2000);
   }
 
+  if(bombDraw){
+    currentBomb.draw();
+  }
 
   for(let i=0; i<fruits.length; i++){
     fruits[i].draw();
@@ -129,7 +138,7 @@ function drawingLoop(){
     }
   }
 
-  // MOUSE + COLLISON DETECTION
+// MOUSE + COLLISON DETECTION
 
   myCanvas.addEventListener("mousemove", function(event) {
     for(let i=0; i<fruits.length; i++){
@@ -140,7 +149,6 @@ function drawingLoop(){
       };
   });
 
-  // currentFruit.draw();
   setTimeout(function(){
     requestAnimationFrame(function(){
       drawingLoop();
@@ -148,8 +156,21 @@ function drawingLoop(){
   }, 10);
 }
 
-// function update(){
-//   setInterval(drawingLoop, 4000);
-// }
+// GAME OVER FUNCTION
+
+function gameOver(){
+  ctx.clearRect(0, 0, 1000, 500);
+  drawBackground();
+  const loseImg = new Image();
+  loseImg.src = "./images/youlose.png";
+  // tiredSupermanImg.src = "images/tired_superman.png"; => when deployed delete "./"
+  tiredSupermanImg.onload = function(){
+      ctx.drawImage(loseImg, 400, 300, 150, 150);
+  }
+  isOver = true;
+  ctx.font = "bold 70px Arial";
+  ctx.fillStyle = "white";
+  ctx.fillText("Game Over", 310, 225);
+}
 
 startGame();
