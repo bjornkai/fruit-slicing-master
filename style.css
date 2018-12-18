@@ -1,30 +1,15 @@
-html {
-  background: url("images/curtain.png") no-repeat;
-  background-size: cover;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-}
+
 .fruit-master {
   border: 3px solid black;
 }
-#game_background {
-  background:#dddddd;
-	width:800px;
-	height:540px;
-	padding:70px;
-	margin:0px auto;
-  border-radius: 84px;
-  box-shadow: inset 0px 0px 20px -6px rgba(97,89,97,1);
-}
 
-#score {
-  background-color:lightpink;;
-  border-radius: 8px;
-  font-size: 30px;
-  font-family: Arial;
-  width:200px;
-  padding: 20px;
-  padding-top: 0;
-  margin-left: 75%;
+#canvas-game{
+  width: 1000px;
+  height: 500px;
+  background: url("images/curtain.png") no-repeat;
+  background-size: cover;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  margin: 7%;
 }
 
 h1 {

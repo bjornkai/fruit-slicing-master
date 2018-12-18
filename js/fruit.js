@@ -23,6 +23,7 @@ let theKnife = {};
 let currentFruit
 let score = 0;
 let bombDraw = false;
+let isOver = false;
 
 
 // FRUIT and ARRAY/OBJECT
@@ -104,18 +105,18 @@ const fruits = [];
 function drawingLoop(){
   ctx.clearRect(0, 0, 1000, 5000);
   frames++;
-  // console.log(frames)
 
 // CHECKS FOR COLLISION, IF COLLISION, DRAW SPARKLES
 
-for(let i=0; i<fruits.length; i++){
+if(isOver === false){for(let i=0; i<fruits.length; i++){
     if(checkCollision(fruits[i], theKnife)){
       let indx = fruits[i];
       fruits[i].image.src = './images/sparkles.png'
+      score+=1;
       setTimeout(()=>{
         fruits.splice(i, 1);
       }, 500)
-    }
+    } 
     };
 
   if(frames % 40 === 1){
@@ -131,27 +132,30 @@ for(let i=0; i<fruits.length; i++){
     bombDraw = true;
     setTimeout(function(){
         bombDraw = false;
+
     }, 5000);
   }
   // CHANGES IMG TO EXPLOSION
-
-  // if(bombDraw){
-  //   currentBomb.draw();
-  //   if(checkCollision(currentBomb, theKnife)){
-  //     currentBomb.image.src = `./images/explosion.png`
-  //     gameOver(); 
-  //   };
-  // }
 
   for(let i=0; i<fruits.length; i++){
     fruits[i].draw();
   }
 
-  if(fruits.length>3){
+  if(fruits.length>7){
     if(frames % 40 ===1){
       let indx = Math.floor(Math.random()*fruits.length);
       fruits.splice(indx, 1);
     }
+  }}
+
+  else {gameOver();}
+
+  if(bombDraw){
+    currentBomb.draw();
+    if(checkCollision(currentBomb, theKnife)){
+      currentBomb.image.src = `./images/explosion.png`
+      gameOver(); 
+    };
   }
 
   setTimeout(function(){
@@ -160,6 +164,7 @@ for(let i=0; i<fruits.length; i++){
     })
   }, 10);
 }
+
 
 
 // MOUSE + COLLISON DETECTION
@@ -175,11 +180,10 @@ document.addEventListener("mousemove", function(event) {
 // GAME OVER FUNCTION
 
 function gameOver(){
-  console.log("game is over")
+  isOver = true;
   const loseImg = new Image();
   loseImg.src = `./images/youlose.png`;
-  ctx.drawImage(loseImg, 400, , 600, 600);
-  isOver = true;
+  ctx.drawImage(loseImg, 250, 100, 500, 500);
 }
 
 startGame();
