@@ -19,7 +19,7 @@ function startGame() {
 }
 
 // GLOBAL VARIABLES 
-
+let theKnife = {};
 let currentFruit
 let score = 0;
 let bombDraw = false;
@@ -66,7 +66,7 @@ function Bomb (image) {
   this.width = 70;
   this.height = 70; 
   this.x = Math.floor(Math.random()*900);
-  this.y = Math.floor(Math.random()*400); 
+  this.y = Math.floor(Math.random()*400);
  
   this.draw = function(){
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
@@ -97,6 +97,8 @@ function checkCollision(obj1, obj2){
    &&    obj1.x <= obj2.clientX
 }
 
+// FUNCTION TO REDRAW FRAMES 
+
 frames = 0;
 const fruits = [];
 function drawingLoop(){
@@ -104,6 +106,17 @@ function drawingLoop(){
   frames++;
   // console.log(frames)
 
+// CHECKS FOR COLLISION, IF COLLISION, DRAW SPARKLES
+
+for(let i=0; i<fruits.length; i++){
+    if(checkCollision(fruits[i], theKnife)){
+      let indx = fruits[i];
+      fruits[i].image.src = './images/sparkles.png'
+      setTimeout(()=>{
+        fruits.splice(i, 1);
+      }, 500)
+    }
+    };
 
   if(frames % 40 === 1){
     let indx = Math.floor(Math.random()*fruitsArray.length);
@@ -112,20 +125,23 @@ function drawingLoop(){
     fruits.push(currentFruit);
   }
 
-  if(frames % 80 === 1){
+  if(frames % 100 === 1){
     currentBomb = new Bomb();
     currentBomb.draw();
     bombDraw = true;
-    console.log("bomb");
     setTimeout(function(){
         bombDraw = false;
-      
-    }, 2000);
+    }, 5000);
   }
+  // CHANGES IMG TO EXPLOSION
 
-  if(bombDraw){
-    currentBomb.draw();
-  }
+  // if(bombDraw){
+  //   currentBomb.draw();
+  //   if(checkCollision(currentBomb, theKnife)){
+  //     currentBomb.image.src = `./images/explosion.png`
+  //     gameOver(); 
+  //   };
+  // }
 
   for(let i=0; i<fruits.length; i++){
     fruits[i].draw();
@@ -138,17 +154,6 @@ function drawingLoop(){
     }
   }
 
-// MOUSE + COLLISON DETECTION
-
-  myCanvas.addEventListener("mousemove", function(event) {
-    for(let i=0; i<fruits.length; i++){
-      if(checkCollision(fruits[i], event)){
-        let indx = fruits[i];
-        fruits.splice(i, 1);
-      }
-      };
-  });
-
   setTimeout(function(){
     requestAnimationFrame(function(){
       drawingLoop();
@@ -156,21 +161,25 @@ function drawingLoop(){
   }, 10);
 }
 
+
+// MOUSE + COLLISON DETECTION
+
+document.addEventListener("mousemove", function(event) {
+  console.log("clientX, clientY", event.clientX, event.clientY);
+  let borders = myCanvas.getBoundingClientRect();
+  theKnife.clientX = event.clientX - borders.left;
+  theKnife.clientY = event.clientY - borders.top;
+  console.log(theKnife);
+  });
+   
 // GAME OVER FUNCTION
 
 function gameOver(){
-  ctx.clearRect(0, 0, 1000, 500);
-  drawBackground();
+  console.log("game is over")
   const loseImg = new Image();
-  loseImg.src = "./images/youlose.png";
-  // tiredSupermanImg.src = "images/tired_superman.png"; => when deployed delete "./"
-  tiredSupermanImg.onload = function(){
-      ctx.drawImage(loseImg, 400, 300, 150, 150);
-  }
+  loseImg.src = `./images/youlose.png`;
+  ctx.drawImage(loseImg, 400, , 600, 600);
   isOver = true;
-  ctx.font = "bold 70px Arial";
-  ctx.fillStyle = "white";
-  ctx.fillText("Game Over", 310, 225);
 }
 
 startGame();
