@@ -21,7 +21,7 @@ function startGame() {
 // GLOBAL VARIABLES 
 let theKnife = {};
 let currentFruit
-let score = 0;
+let theScore = 0;
 let bombDraw = false;
 let isOver = false;
 
@@ -58,6 +58,7 @@ function Fruit (image) {
   }
 }
 
+
 // BOMB CONSTRUCTOR
 
 function Bomb (image) {
@@ -86,7 +87,7 @@ function getMousePos(canvas, evt) {
 
 function startGame(){
   drawingLoop();
-  // update();
+  update();
 }
 
 // FUNCTION TO CHECK COLLISION
@@ -112,7 +113,6 @@ if(isOver === false){for(let i=0; i<fruits.length; i++){
     if(checkCollision(fruits[i], theKnife)){
       let indx = fruits[i];
       fruits[i].image.src = './images/sparkles.png'
-      score+=1;
       setTimeout(()=>{
         fruits.splice(i, 1);
       }, 500)
@@ -126,7 +126,7 @@ if(isOver === false){for(let i=0; i<fruits.length; i++){
     fruits.push(currentFruit);
   }
 
-  if(frames % 100 === 1){
+  if(frames % 150 === 1){
     currentBomb = new Bomb();
     currentBomb.draw();
     bombDraw = true;
@@ -142,7 +142,7 @@ if(isOver === false){for(let i=0; i<fruits.length; i++){
   }
 
   if(fruits.length>7){
-    if(frames % 40 ===1){
+    if(frames % 60 === 1){
       let indx = Math.floor(Math.random()*fruits.length);
       fruits.splice(indx, 1);
     }
@@ -183,7 +183,7 @@ function gameOver(){
   isOver = true;
   const loseImg = new Image();
   loseImg.src = `./images/youlose.png`;
-  ctx.drawImage(loseImg, 250, 100, 500, 500);
+  ctx.drawImage(loseImg, 250, 20, 500, 500);
 }
 
 startGame();

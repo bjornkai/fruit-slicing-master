@@ -1,24 +1,27 @@
 
-.fruit-master {
-  border: 3px solid black;
-}
-
 #canvas-game{
   width: 1000px;
   height: 500px;
   background: url("images/curtain.png") no-repeat;
   background-size: cover;
   font-family: "Helvetica Neue", Arial, sans-serif;
-  margin: 7%;
+  margin: 5.5%;
+}
+
+#the-score {
+  font-weight: bolder;
+  font-size: 40px;
+  color: darkred;
+  text-align: center;
+  text-shadow: 0px 0px 20px rgba(150, 150, 150, 1);
 }
 
 h1 {
-  color: lightpink;
+  color: darkred;
   font-weight: bolder;
   font-size: 67px;
   text-align: center;
   text-shadow: 0px 0px 20px rgba(150, 150, 150, 1);
-
 }
 
 h2 {
