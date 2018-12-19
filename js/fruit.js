@@ -142,7 +142,7 @@ if(isOver === false){for(let i=0; i<fruits.length; i++){
   }
 
   if(fruits.length>7){
-    if(frames % 60 === 1){
+    if(frames % 30 === 1){
       let indx = Math.floor(Math.random()*fruits.length);
       fruits.splice(indx, 1);
     }
