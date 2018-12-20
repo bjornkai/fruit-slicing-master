@@ -87,7 +87,7 @@ function getMousePos(canvas, evt) {
 
 function startGame(){
   drawingLoop();
-  update();
+  // update();
 }
 
 // FUNCTION TO CHECK COLLISION
@@ -98,6 +98,12 @@ function checkCollision(obj1, obj2){
    &&    obj1.x + obj1.width >= obj2.clientX
    &&    obj1.x <= obj2.clientX
 }
+
+
+function increment() {
+  theScore += 1;
+  $("#the-score")[0].innerHTML = theScore;
+};
 
 // FUNCTION TO REDRAW FRAMES 
 
@@ -113,9 +119,11 @@ if(isOver === false){for(let i=0; i<fruits.length; i++){
     if(checkCollision(fruits[i], theKnife)){
       let indx = fruits[i];
       fruits[i].image.src = './images/sparkles.png'
-      setTimeout(()=>{
+      // setTimeout(()=>{
         fruits.splice(i, 1);
-      }, 500)
+        increment();
+        console.log(fruits[i]);
+      // }, 500)
     } 
     };
 
@@ -170,11 +178,11 @@ if(isOver === false){for(let i=0; i<fruits.length; i++){
 // MOUSE + COLLISON DETECTION
 
 document.addEventListener("mousemove", function(event) {
-  console.log("clientX, clientY", event.clientX, event.clientY);
+  // console.log("clientX, clientY", event.clientX, event.clientY);
   let borders = myCanvas.getBoundingClientRect();
   theKnife.clientX = event.clientX - borders.left;
   theKnife.clientY = event.clientY - borders.top;
-  console.log(theKnife);
+  // console.log(theKnife);
   });
    
 // GAME OVER FUNCTION
